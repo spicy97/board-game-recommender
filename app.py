@@ -57,6 +57,8 @@ if 'games' not in st.session_state:
     st.session_state.games = []
 if 'recommendation' not in st.session_state:
     st.session_state.recommendation = None
+if 'reason' not in st.session_state:
+    st.session_state.reason = ""
 if 'history' not in st.session_state:
     st.session_state.history = []
 
@@ -203,8 +205,9 @@ else:
                     chosen = random.choice(min_played)
                 reason = f"One of your least played games ({chosen['play_count']} plays)!"
             
-            # Store recommendation
+            # Store recommendation and reason
             st.session_state.recommendation = chosen
+            st.session_state.reason = reason
             st.session_state.history.append({
                 'game': chosen['name'],
                 'date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -216,6 +219,7 @@ else:
 # Display recommendation
 if st.session_state.recommendation:
     rec = st.session_state.recommendation
+    reason = st.session_state.reason
     
     st.markdown(f"""
         <div class="recommendation">
